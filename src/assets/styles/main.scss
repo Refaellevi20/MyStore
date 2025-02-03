@@ -14,11 +14,14 @@
 @import "cmps/ToyList";
 @import "cmps/EditToy";
 @import "cmps/LoginModal";
+@import "cmps/QuickPayment";
+
 
 //& pages
 @import "pages/ToyDetails";
 @import "pages/Cart";
 @import "pages/Payment";
+@import "pages/PaymentSuccess";
 //& slide
 // @import "cmps/slide/SlideGig";
 // @import "cmps/slide/SlideList";

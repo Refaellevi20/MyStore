@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { toyService } from '../services/toy.service.local'
-import { FaArrowLeft, FaArrowRight, FaMinus, FaPlus, FaShoppingCart } from 'react-icons/fa'
+import { FaArrowLeft, FaArrowRight, FaMinus, FaPlus, FaShoppingCart, FaCreditCard } from 'react-icons/fa'
 import { utilService } from '../services/util.service'
 
 export function ToyDetails() {
@@ -9,6 +9,8 @@ export function ToyDetails() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedImages, setSelectedImages] = useState({})
+  const [isQuickBuyModal, setIsQuickBuyModal] = useState(false)
+  const [selectedQuickBuyImage, setSelectedQuickBuyImage] = useState(null)
   const { toyId } = useParams()
   const navigate = useNavigate()
 
@@ -55,6 +57,27 @@ export function ToyDetails() {
   const calculateTotal = () => {
     const selectedCount = Object.values(selectedImages).filter(Boolean).length
     return (toy.price * selectedCount).toFixed(2)
+  }
+
+  const handleQuickBuy = () => {
+    navigate('/quick-payment', {
+      state: {
+        toy,
+        selectedImage: images[currentImageIndex]
+      }
+    })
+  }
+
+  const processQuickBuy = () => {
+    // Here you would typically handle the payment processing
+    const purchaseItem = {
+      toyId: toy._id,
+      toyName: toy.name,
+      imageUrl: selectedQuickBuyImage,
+      price: toy.price
+    }
+    // Add to purchase history or process payment
+    setIsQuickBuyModal(false)
   }
 
   if (!toy) return <div>Loading...</div>
@@ -126,12 +149,20 @@ export function ToyDetails() {
           <h2>{toy.name}</h2>
           <span className="price">{utilService.formatCurrency(toy.price)}</span>
           <p className="labels">Labels: {toy.labels?.join(', ')}</p>
-          <button 
-            className="buy-now-btn"
-            onClick={handleBuyNow}
-          >
-            Select Images to Buy
-          </button>
+          <div className="button-group">
+            <button 
+              className="buy-now-btn quick-buy"
+              onClick={handleQuickBuy}
+            >
+              <FaCreditCard /> Buy Now
+            </button>
+            <button 
+              className="select-images-btn"
+              onClick={handleBuyNow}
+            >
+              <FaShoppingCart /> Select Images
+            </button>
+          </div>
         </div>
       </div>
 
@@ -170,6 +201,66 @@ export function ToyDetails() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Quick Buy Modal */}
+      {isQuickBuyModal && (
+        <div className="quick-buy-modal">
+          <div className="modal-content">
+            <h3>Quick Purchase</h3>
+            <div className="selected-image">
+              <img src={selectedQuickBuyImage} alt={toy.name} />
+              <p className="price">${toy.price}</p>
+            </div>
+
+            <form className="payment-form" onSubmit={(e) => {
+              e.preventDefault()
+              processQuickBuy()
+            }}>
+              <div className="form-group">
+                <label>Card Number</label>
+                <input 
+                  type="text" 
+                  placeholder="1234 5678 9012 3456"
+                  maxLength="16"
+                  required
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Expiry Date</label>
+                  <input 
+                    type="text" 
+                    placeholder="MM/YY"
+                    maxLength="5"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>CVV</label>
+                  <input 
+                    type="password" 
+                    placeholder="123"
+                    maxLength="3"
+                    required
+                  />
+                </div>
+              </div>
+
+              <button type="submit" className="process-payment-btn">
+                Pay ${toy.price}
+              </button>
+              <button 
+                type="button" 
+                className="cancel-btn"
+                onClick={() => setIsQuickBuyModal(false)}
+              >
+                Cancel
+              </button>
+            </form>
           </div>
         </div>
       )}

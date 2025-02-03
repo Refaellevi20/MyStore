@@ -1,0 +1,149 @@
+.quick-payment-page {
+  min-height: 100vh;
+  padding: 2rem;
+  background: #f8f9fa;
+
+  @media (max-width: 450px) {
+    padding: 1rem;
+  }
+
+  .back-button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #495057;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+
+    &:hover {
+      background: #e9ecef;
+    }
+  }
+
+  .payment-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    .product-summary {
+      padding: 1.5rem;
+      border-bottom: 1px solid #e9ecef;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .product-info {
+        h2 {
+          margin: 0;
+          font-size: 1.2rem;
+          color: #2c3e50;
+        }
+
+        .price {
+          color: #2c3e50;
+          font-weight: 600;
+          font-size: 1.1rem;
+          margin: 0.5rem 0 0;
+        }
+      }
+    }
+
+    .payment-form {
+      padding: 1.5rem;
+
+      .form-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        color: #2c3e50;
+
+        svg {
+          font-size: 1.5rem;
+        }
+
+        h3 {
+          margin: 0;
+        }
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          color: #495057;
+          font-size: 0.9rem;
+        }
+
+        input {
+          width: 100%;
+          padding: 0.8rem;
+          border: 1px solid #dee2e6;
+          border-radius: 8px;
+          font-size: 1rem;
+          transition: border-color 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: #007bff;
+          }
+        }
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .submit-payment {
+        width: 100%;
+        padding: 1rem;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+
+        &:hover:not(:disabled) {
+          background: #0056b3;
+          transform: translateY(-2px);
+        }
+
+        &.processing {
+          background: #6c757d;
+          cursor: not-allowed;
+          transform: none;
+        }
+
+        .processing-text {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+        }
+      }
+    }
+  }
+} 

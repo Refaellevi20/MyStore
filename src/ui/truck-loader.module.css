@@ -1,0 +1,184 @@
+.truck-loader {
+  position: relative;
+  width: 300px;
+  height: 150px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #f0f8ff;
+}
+
+/* Transport Truck Styles */
+.transport-truck {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  width: 120px;
+  height: 70px;
+}
+
+.cabin {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  height: 35px;
+  background: #2c3e50;
+  border-radius: 5px;
+}
+
+.window {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 15px;
+  height: 15px;
+  background: #85c1e9;
+  border-radius: 3px;
+}
+
+.trailer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 80px;
+  height: 30px;
+  background: #34495e;
+  border-radius: 5px;
+}
+
+.ramp {
+  position: absolute;
+  left: 0;
+  bottom: -15px;
+  width: 40px;
+  height: 20px;
+  background: #34495e;
+  transform-origin: top left;
+  animation: ramp-movement 4s infinite;
+}
+
+/* Truck Styles */
+.truck {
+  position: absolute;
+  left: -60px;
+  bottom: 30px;
+  width: 50px;
+  height: 40px;
+  animation: truck-movement 4s infinite;
+}
+
+.truck-body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.truck-cabin {
+  position: absolute;
+  width: 20px;
+  height: 25px;
+  background: #3498db;
+  border-radius: 5px;
+}
+
+.truck-window {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 10px;
+  height: 10px;
+  background: #85c1e9;
+  border-radius: 2px;
+}
+
+.truck-cargo {
+  position: absolute;
+  left: 22px;
+  bottom: 0;
+  width: 28px;
+  height: 20px;
+  background: #3498db;
+  border-radius: 3px;
+}
+
+/* Wheels */
+.wheels, .truck-wheels {
+  position: absolute;
+  bottom: -8px;
+  width: 100%;
+}
+
+.wheel {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #2c3e50;
+  border: 2px solid #95a5a6;
+  border-radius: 50%;
+  animation: wheel-spin 1s linear infinite;
+}
+
+.wheels .wheel:nth-child(1) { left: 10px; }
+.wheels .wheel:nth-child(2) { left: 50px; }
+.wheels .wheel:nth-child(3) { left: 90px; }
+
+.truck-wheels .wheel:nth-child(1) { left: 5px; }
+.truck-wheels .wheel:nth-child(2) { right: 5px; }
+
+/* Road */
+.road {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  background: #34495e;
+}
+
+.stripe {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  opacity: 0.5;
+}
+
+/* Animations */
+@keyframes truck-movement {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  40% {
+    transform: translateX(180px) translateY(0);
+  }
+  50% {
+    transform: translateX(180px) translateY(-25px);
+  }
+  60% {
+    transform: translateX(180px) translateY(-25px);
+  }
+  100% {
+    transform: translateX(400px) translateY(-25px);
+  }
+}
+
+@keyframes wheel-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ramp-movement {
+  0%, 35% {
+    transform: scaleY(0) skewX(-45deg);
+  }
+  40%, 55% {
+    transform: scaleY(1) skewX(-45deg);
+  }
+  60%, 100% {
+    transform: scaleY(0) skewX(-45deg);
+  }
+}

@@ -1,7 +1,5 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
-// import { toyService } from './toy.service.local.js'
-// import { userService } from './user.service.js'
 
 export const orderService = {
   query,
@@ -10,6 +8,7 @@ export const orderService = {
   save,
   getEmptyOrder,
 }
+
 const STORAGE_KEY = 'orders'
 
 _createOrders()
@@ -26,8 +25,8 @@ async function query(filterBy = {}) {
 }
 
 async function getById(orderId) {
-  const toys = await storageService.get(STORAGE_KEY, orderId)
-  return toys
+  const order = await storageService.get(STORAGE_KEY, orderId)
+  return order
 }
 
 async function remove(orderId) {
@@ -35,7 +34,6 @@ async function remove(orderId) {
 }
 
 async function save(order) {
-  console.log('order', order)
   if (order._id) {
     return storageService.put(STORAGE_KEY, order)
   } else {
@@ -43,29 +41,28 @@ async function save(order) {
   }
 }
 
-function getEmptyOrder(
-  startDate = null,
-  endDate = null,
-  guests = { adults: 0, kids: 0, infants: 0, pets: 0 },
-  toy = { _id: null, name: null }
-) {
+function getEmptyOrder() {
   return {
-    _id: null,
-    hostId: null,
+    _id: '',
+    createdAt: new Date(),
     buyer: {
-      // _id: userService.getLoggedinUser()._id,
-      // fullname: userService.getLoggedinUser().fullname
       _id: '',
       fullname: '',
       imgUrl: '',
     },
     totalPrice: 0,
-    startDate,
-    endDate,
-    guests,
-    toy,
-    msgs: [],
+    toy: {
+      _id: '',
+      name: '',
+      price: 0,
+      imgUrl: '',
+    },
     status: 'pending',
+    paymentDetails: {
+      cardNumber: '',
+      expiryDate: '',
+      cvv: '',
+    }
   }
 }
 
@@ -73,87 +70,70 @@ function _createdDemoOrders() {
   let DEMO_ORDERS = [
     {
       _id: 'o1225',
-      hostId: 'u101',
+      createdAt: '2024-03-15T10:30:00',
       buyer: {
         _id: 'u102',
-        fullname: 'Puki guest',
-        imgURL: 'https://robohash.org/pukiguest',
+        fullname: 'John Doe',
+        imgUrl: 'https://robohash.org/johndoe',
       },
-      totalPrice: 160,
-      startDate: '2025/10/15',
-      endDate: '2025/10/17',
-      guests: {
-        adults: 2,
-        kids: 1,
-        infants: 0,
-        pets: 0,
-      },
+      totalPrice: 89.99,
       toy: {
-        _id: 'h102',
-        name: 'House Of Uncle My',
-        price: 80.0,
-        loc: {},
+        _id: 't102',
+        name: 'Remote Control Car',
+        price: 89.99,
+        imgUrl: 'https://example.com/rc-car.jpg',
       },
-      msgs: [],
-      status: 'pending', // pending, approved
+      status: 'pending',
+      paymentDetails: {
+        cardNumber: '**** **** **** 4242',
+        expiryDate: '12/25',
+      }
     },
     {
-      _id: 'o1225',
-      hostId: 'u101',
+      _id: 'o1226',
+      createdAt: '2024-03-14T15:45:00',
       buyer: {
-        _id: 'u102',
-        fullname: 'Puki guest',
-        imgURL: 'https://robohash.org/pukiguest',
+        _id: 'u103',
+        fullname: 'Jane Smith',
+        imgUrl: 'https://robohash.org/janesmith',
       },
-      totalPrice: 160,
-      startDate: '2025/01/8',
-      endDate: '2025/01/17',
-      guests: {
-        adults: 2,
-        kids: 1,
-        infants: 0,
-        pets: 0,
-      },
+      totalPrice: 34.99,
       toy: {
-        _id: 'h102',
-        name: 'House Of Uncle My',
-        price: 80.0,
-        loc: {},
+        _id: 't103',
+        name: 'LEGO Set',
+        price: 34.99,
+        imgUrl: 'https://example.com/lego-set.jpg',
       },
-      msgs: [],
-      status: 'pending', // pending, approved
+      status: 'completed',
+      paymentDetails: {
+        cardNumber: '**** **** **** 5555',
+        expiryDate: '09/24',
+      }
     },
     {
-      _id: 'o1223',
-      hostId: 'u101',
+      _id: 'o1227',
+      createdAt: '2024-03-13T09:15:00',
       buyer: {
-        _id: 'u102',
-        fullname: 'Puki guest',
-        imgURL: 'https://robohash.org/pukiguest',
+        _id: 'u104',
+        fullname: 'Mike Johnson',
+        imgUrl: 'https://robohash.org/mikejohnson',
       },
-      totalPrice: 160,
-      startDate: '2025/10/15',
-      endDate: '2025/10/17',
-      guests: {
-        adults: 2,
-        kids: 1,
-        infants: 0,
-        pets: 0,
-      },
+      totalPrice: 129.99,
       toy: {
-        _id: 'h104',
-        name: 'Amizing apartment in center. ',
-        price: 100.0,
-        loc: {},
+        _id: 't104',
+        name: 'Drone',
+        price: 129.99,
+        imgUrl: 'https://example.com/drone.jpg',
       },
-      msgs: [],
-      status: 'pending', // pending, approved
-    },
+      status: 'processing',
+      paymentDetails: {
+        cardNumber: '**** **** **** 8888',
+        expiryDate: '03/25',
+      }
+    }
   ]
-  utilService.saveToStorage(
-    STORAGE_KEY,
-    JSON.parse(JSON.stringify(DEMO_ORDERS))
-  )
+  
+  utilService.saveToStorage(STORAGE_KEY, JSON.parse(JSON.stringify(DEMO_ORDERS)))
 }
 
 function _createOrders() {

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { FaCreditCard, FaArrowLeft } from 'react-icons/fa'
+import { utilService } from '../services/util.service'
 
 export function QuickPayment() {
   const location = useLocation()
@@ -133,8 +134,10 @@ export function QuickPayment() {
           >
             {isProcessing ? (
               <span className="processing-text">Processing...</span>
+            //   <TruckLoader />
+
             ) : (
-              <span>Pay ${toy.price}</span>
+                <span className="price">pay:{utilService.formatCurrency(toy.price)}</span>
             )}
           </button>
         </form>

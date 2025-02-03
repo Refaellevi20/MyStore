@@ -1,0 +1,85 @@
+@mixin for-mobile-layout {
+    @media (max-width: calc($mobile-breakpoint + 40px)) {
+        @content;
+    }
+}
+
+@mixin for-narrow-layout {
+    @media (min-width: calc($mobile-breakpoint + 40px)) {
+        @content;
+    }
+}
+
+@mixin for-max-breakpoint-layout {
+    @media (max-width: calc($grid-break-point-1 + 40px)) {
+        @content;
+    }
+}
+
+@mixin for-max-narrow-layout {
+    @media (max-width: calc($narrow-breakpoint + 40px)) {
+        @content;
+    }
+}
+
+@mixin for-normal-layout {
+    @media (min-width: calc($narrow-breakpoint + 40px)) {
+        @content;
+    }
+}
+
+@mixin for-wide-layout {
+    @media (min-width: calc($normal-breakpoint + 40px)) {
+        @content;
+    }
+}
+
+@mixin for-large-layout {
+    @media (min-width: calc($wide-breakpoint + 40px)) {
+        @content;
+    }
+}
+
+@mixin aspect-ratio($width, $height, $max-height: auto) {
+    position: relative;
+    overflow: hidden;
+  
+    // Fallback for browsers that don’t support aspect-ratio
+    &::before {
+      display: block;
+      content: "";
+      width: 100%;
+      aspect-ratio: $width / $height; // Use modern aspect-ratio support
+      padding-top: calc(($height / $width) * 30%); // Fallback for older browsers
+    }
+  
+    // Constrain the height for better visuals
+    max-height: $max-height;
+  
+    // Ensure all children fit within the aspect ratio
+    > * {
+      position: absolute;
+      inset: 0; // shorthand for top, right, bottom, left: 0
+      width: 100%;
+      height: 100%;
+    }
+  
+    // Specifically style images for responsive behavior
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center; // Center the image for better composition
+    }
+  }
+  
+  
+  
+  // Mixin for removing hover efects on iphone screen
+  @mixin hover-supported {    
+    @media not all and (pointer: coarse) {
+        &:hover {
+            @content;
+        }
+    }
+  }

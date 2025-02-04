@@ -11,6 +11,7 @@ import { QuickPayment } from './pages/QuickPayment'
 import { PaymentSuccess } from './pages/PaymentSuccess'
 import { AdminPaymentSuccess } from './pages/AdminPaymentSuccess'
 import { AppHeader } from './cmps/AppHeader'
+import { AdminReports } from './cmps/AdminReports'
 // import { AppFooter } from './cmps/AppFooter'
 // import { UserMsg } from './cmps/UserMsg'
 
@@ -22,7 +23,7 @@ export function RootCmp() {
   return (
     <div className="l">
       {/* <UserMsg /> */}
-      <AppHeader />
+      {/* <AppHeader /> */}
       <main>
         <Routes>
           <Route path='/' element={<ToyIndex />} />
@@ -35,7 +36,9 @@ export function RootCmp() {
           <Route path='/payment' element={<Payment />} />
           <Route path="/quick-payment" element={<QuickPayment />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
-          <Route path="/admin-payment-success" element={<AdminPaymentSuccess />} />
+            <Route path="/admin-payment-success" element={<AdminPaymentSuccess />} />
+          <Route path="/admin/reports" element={<AdminReports />} />
+          
         </Routes>
       </main>
       {/* <AppFooter/> */}

@@ -17,18 +17,23 @@
 @import "cmps/QuickPayment";
 @import "cmps/QuickPayment";
 @import "cmps/AppHeader";
+@import "cmps/AdminReports";
 
 
 //& pages
 @import "pages/ToyDetails";
 @import "pages/Cart";
 @import "pages/Payment";
+@import "pages/PaymentSuccess";
+@import "pages/AdminPaymentSuccess";
+
 //& slide
 // @import "cmps/slide/SlideGig";
 // @import "cmps/slide/SlideList";
 // @import "cmps/slide/DetailsCarousel";
 // @import "cmps/slide/SlideDetails";
 // @import "cmps/slide/SlideAirPreview";
+
 
 
 // @import "setup/vars";

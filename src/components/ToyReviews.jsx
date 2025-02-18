@@ -1,21 +1,29 @@
 import { useState, useEffect } from 'react'
 import { StarRating } from './StarRating'
 import { reviewService } from '../services/reviews.service.local'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 export function ToyReviews({ toyId }) {
   const [reviews, setReviews] = useState([])
   const [newReview, setNewReview] = useState({ rating: 5, text: '' })
   const [averageRating, setAverageRating] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const REVIEWS_PER_PAGE = 4
 
   useEffect(() => {
     loadReviews()
-  }, [toyId])
+  }, [toyId, currentPage])
 
   const loadReviews = async () => {
     try {
-      const reviews = await reviewService.getByToyId(toyId)
-      setReviews(reviews)
-      calculateAverageRating(reviews)
+      const allReviews = await reviewService.getByToyId(toyId)
+      const startIndex = (currentPage - 1) * REVIEWS_PER_PAGE
+      const endIndex = startIndex + REVIEWS_PER_PAGE
+      
+      setTotalPages(Math.ceil(allReviews.length / REVIEWS_PER_PAGE))
+      setReviews(allReviews.slice(startIndex, endIndex))
+      calculateAverageRating(allReviews)
     } catch (err) {
       console.error('Error loading reviews:', err)
     }
@@ -48,6 +56,83 @@ export function ToyReviews({ toyId }) {
     } catch (err) {
       console.error('Error submitting review:', err)
     }
+  }
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
+  const renderPagination = () => {
+    const pages = []
+    const maxVisiblePages = 5
+
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2))
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)
+
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1)
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(
+        <button
+          key={i}
+          className={`pagination-button ${currentPage === i ? 'active' : ''}`}
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </button>
+      )
+    }
+
+    return (
+      <div className="pagination">
+        <button
+          className="pagination-arrow"
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          <FaChevronLeft />
+        </button>
+        
+        {startPage > 1 && (
+          <>
+            <button
+              className="pagination-button"
+              onClick={() => handlePageChange(1)}
+            >
+              1
+            </button>
+            {startPage > 2 && <span className="pagination-dots">...</span>}
+          </>
+        )}
+        
+        {pages}
+        
+        {endPage < totalPages && (
+          <>
+            {endPage < totalPages - 1 && <span className="pagination-dots">...</span>}
+            <button
+              className="pagination-button"
+              onClick={() => handlePageChange(totalPages)}
+            >
+              {totalPages}
+            </button>
+          </>
+        )}
+        
+        <button
+          className="pagination-arrow"
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          <FaChevronRight />
+        </button>
+      </div>
+    )
   }
 
   return (
@@ -103,6 +188,8 @@ export function ToyReviews({ toyId }) {
           </div>
         ))}
       </div>
+
+      {totalPages > 1 && renderPagination()}
     </div>
   )
 } 

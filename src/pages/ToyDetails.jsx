@@ -5,6 +5,7 @@ import { FaArrowLeft, FaArrowRight, FaMinus, FaPlus, FaShoppingCart, FaCreditCar
 import { utilService } from '../services/util.service'
 import { ToyReviews } from '../components/ToyReviews'
 import { RelatedToys } from '../components/RelatedToys'
+import { GoogeMap } from '../cmps/GoogeMap'
 
 export function ToyDetails() {
   const [toy, setToy] = useState(null)
@@ -298,6 +299,9 @@ export function ToyDetails() {
           </div>
         </div>
       )}
+      <div className="map-container">
+      <GoogeMap />
+      </div>
 
       {/* Shopping Cart Button */}
       <button 

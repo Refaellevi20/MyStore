@@ -99,7 +99,7 @@ export function ToyDetails() {
   }
 
   return (
-    <section className="toy-details">
+    <section className="toy-details secondary-layout">
       <div className="details-layout">
         {/* Mobile-Friendly Gallery Section */}
         <div className="gallery-container">

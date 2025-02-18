@@ -413,3 +413,62 @@
       justify-content: center;
     }
   }
+
+  .toy-additional-info {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 2rem;
+
+    .toy-description, .toy-specs, .toy-amenities {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+      h3 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+      }
+    }
+
+ 
+
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+
+      .amenity-item {
+        background: #f8f9fa;
+        padding: 0.8rem;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: #2c3e50;
+      }
+    }
+  }
+
+  .toy-specs {
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        strong {
+          color: #6c757d;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }

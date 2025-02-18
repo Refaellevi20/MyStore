@@ -209,7 +209,35 @@ function _createDemotoys() {
         lat: -156.6917,
         lng: 20.93792,
       },
-      reviews: [],
+      reviews: [
+        {
+          id: 'r1',
+          userId: 'u102',
+          userName: 'John Doe',
+          rating: 4.5,
+          text: 'Great toy! My kids love it. The quality is excellent and it keeps them entertained for hours.',
+          date: '2024-03-15',
+          avatar: 'https://robohash.org/johndoe'
+        },
+        {
+          id: 'r2',
+          userId: 'u103',
+          userName: 'Sarah Smith',
+          rating: 5,
+          text: 'Absolutely fantastic! Worth every penny. The attention to detail is amazing.',
+          date: '2024-03-14',
+          avatar: 'https://robohash.org/sarahsmith'
+        },
+        {
+          id: 'r3',
+          userId: 'u104',
+          userName: 'Mike Johnson',
+          rating: 4,
+          text: 'Very good toy, but could use some improvements in durability. Otherwise, great purchase!',
+          date: '2024-03-13',
+          avatar: 'https://robohash.org/mikejohnson'
+        }
+      ],
       likedByUsers: [],
     },
     {

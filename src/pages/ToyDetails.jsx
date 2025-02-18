@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { toyService } from '../services/toy.service.local'
 import { FaArrowLeft, FaArrowRight, FaMinus, FaPlus, FaShoppingCart, FaCreditCard } from 'react-icons/fa'
 import { utilService } from '../services/util.service'
+import { ToyReviews } from '../components/ToyReviews'
+import { RelatedToys } from '../components/RelatedToys'
 
 export function ToyDetails() {
   const [toy, setToy] = useState(null)
@@ -98,57 +100,65 @@ export function ToyDetails() {
 
   return (
     <section className="toy-details">
-    <div className="details-layout">
-      {/* Mobile-Friendly Gallery Section */}
-      <div className="gallery-container">
-        <div className="main-image-container">
-          {/* Swipe indicator for mobile */}
-          <div className="swipe-indicator">
-            <div className="dots">
-              {images.map((_, idx) => (
-                <span 
-                  key={idx} 
-                  className={`dot ${idx === currentImageIndex ? 'active' : ''}`}
+      <div className="details-layout">
+        {/* Mobile-Friendly Gallery Section */}
+        <div className="gallery-container">
+          <div className="main-image-container">
+            {/* Swipe indicator for mobile */}
+            <div className="swipe-indicator">
+              <div className="dots">
+                {images.map((_, idx) => (
+                  <span 
+                    key={idx} 
+                    className={`dot ${idx === currentImageIndex ? 'active' : ''}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="image-slider">
+              <button className="nav-btn prev" onClick={prevImage}>
+                <FaArrowLeft />
+              </button>
+              <div className="main-image">
+                <img 
+                  src={images[currentImageIndex]} 
+                  alt={`${toy.name} - Main view`} 
                 />
-              ))}
+              </div>
+              <button className="nav-btn next" onClick={nextImage}>
+                <FaArrowRight />
+              </button>
             </div>
           </div>
 
-          <div className="image-slider">
-            <button className="nav-btn prev" onClick={prevImage}>
-              <FaArrowLeft />
-            </button>
-            <div className="main-image">
-              <img 
-                src={images[currentImageIndex]} 
-                alt={`${toy.name} - Main view`} 
-              />
-            </div>
-            <button className="nav-btn next" onClick={nextImage}>
-              <FaArrowRight />
-            </button>
+          {/* Thumbnails - Hidden on mobile */}
+          <div className="thumbnails-container desktop-only">
+            {images.map((img, idx) => (
+              <div 
+                key={idx} 
+                className={`thumbnail ${idx === currentImageIndex ? 'active' : ''}`}
+                onClick={() => setCurrentImageIndex(idx)}
+              >
+                <img src={img} alt={`${toy.name} - Thumbnail ${idx + 1}`} />
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* Thumbnails - Hidden on mobile */}
-        <div className="thumbnails-container desktop-only">
-          {images.map((img, idx) => (
-            <div 
-              key={idx} 
-              className={`thumbnail ${idx === currentImageIndex ? 'active' : ''}`}
-              onClick={() => setCurrentImageIndex(idx)}
-            >
-              <img src={img} alt={`${toy.name} - Thumbnail ${idx + 1}`} />
-            </div>
-          ))}
-        </div>
-      </div>
 
         {/* Product Info Section */}
         <div className="toy-info">
           <h2>{toy.name}</h2>
           <span className="price">{utilService.formatCurrency(toy.price)}</span>
           <p className="labels">Labels: {toy.labels?.join(', ')}</p>
+          <div className="toy-specs">
+            <h3>Specifications</h3>
+            <ul>
+              <li><strong>Type:</strong> {toy.type}</li>
+              <li><strong>Capacity:</strong> {toy.capacity}</li>
+              <li><strong>Location:</strong> {toy.loc.city}, {toy.loc.country}</li>
+            </ul>
+          </div>
           <div className="button-group">
             <button 
               className="buy-now-btn quick-buy"
@@ -163,6 +173,30 @@ export function ToyDetails() {
               <FaShoppingCart /> Select Images
             </button>
           </div>
+        </div>
+
+        {/* Add new sections */}
+        <div className="toy-additional-info">
+       
+
+        
+
+          {/* <div className="toy-amenities">
+            <h3>Amenities</h3>
+            <div className="amenities-grid">
+              {toy.amenities?.map((amenity, idx) => (
+                <div key={idx} className="amenity-item">
+                  {amenity}
+                </div>
+              ))}
+            </div>
+          </div> */}
+
+          {/* Add Reviews Component */}
+          <ToyReviews toyId={toy._id} />
+
+          {/* Add Related Toys Component */}
+          {/* <RelatedToys currentToy={toy} /> */}
         </div>
       </div>
 

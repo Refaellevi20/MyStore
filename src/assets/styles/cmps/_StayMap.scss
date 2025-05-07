@@ -1,29 +1,246 @@
 .map-popper {
-    height: 28px;
-    width: 28px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $clr-brand;
-    border-radius: 50%;
-    position: relative;
+  height: 28px;
+  width: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $clr-brand;
+  border-radius: 50%;
+  position: relative;
 
-    .popper-wedge {
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0) 50%, rgb(255, 56, 92) 50%);
-      border-radius: 2px;
-      bottom: -4px;
-      height: 12px;
-      left: 50%;
+  .popper-wedge {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0) 50%, rgb(255, 56, 92) 50%);
+    border-radius: 2px;
+    bottom: -4px;
+    height: 12px;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, 0px) rotate(45deg);
+    width: 12px;
+    z-index: autol
+  }
+
+  svg {
+    height: 22px;
+    width: 22px;
+    display: block;
+    color: $clr-white;
+  }
+}
+
+.branch-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 0 20px;
+}
+
+.About-places {
+  background-color: white;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  flex: 0 0 auto;
+  min-width: 120px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    width: calc(50% - 10px);
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+}
+
+.map-container {
+  padding: 20px;
+
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 20px;
+  }
+}
+
+.map-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+
+  .search-box {
+    position: relative;
+    flex: 1;
+    max-width: 300px;
+
+    .search-icon {
       position: absolute;
-      transform: translate(-50%, 0px) rotate(45deg);
-      width: 12px;
-      z-index: autol
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
     }
 
-    svg {
-      height: 22px;
-      width: 22px;
-      display: block;
-      color: $clr-white;
+    input {
+      width: 100%;
+      padding: 10px 10px 10px 35px;
+      border: 1px solid #e0e0e0;
+      border-radius: 20px;
+      font-size: 14px;
+
+      &:focus {
+        outline: none;
+        border-color: $clr-brand;
+        box-shadow: 0 0 0 2px rgba(255, 56, 92, 0.1);
+      }
     }
   }
+
+  .map-buttons {
+    display: flex;
+    gap: 10px;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 20px;
+      background: white;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #f5f5f5;
+        transform: translateY(-2px);
+      }
+
+      svg {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.map-section {
+  height: 50vh;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.map-marker {
+  position: relative;
+
+  &.selected {
+    z-index: 1;
+    
+    .map-popper {
+      transform: scale(1.1);
+    }
+
+    .location-info {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 200px;
+      
+      h3 {
+        margin: 0 0 10px;
+        color: #2c3e50;
+      }
+
+      p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #666;
+      }
+    }
+  }
+}
+
+.user-location-marker {
+  color: #007bff;
+  font-size: 24px;
+  animation: pulse 2s infinite;
+}
+
+.branch-card {
+  .branch-details {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .directions-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      background: $clr-brand;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: darken($clr-brand, 10%);
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+

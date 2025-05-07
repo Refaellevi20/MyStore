@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
 import { StarRating } from './StarRating'
 import { reviewService } from '../services/reviews.service.local'
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { FaChevronLeft, FaChevronRight, FaTrash } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 
 export function ToyReviews({ toyId }) {
+  const user = useSelector((state) => state.userModule.user)
   const [reviews, setReviews] = useState([])
   const [newReview, setNewReview] = useState({ rating: 5, text: '' })
   const [averageRating, setAverageRating] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const REVIEWS_PER_PAGE = 4
+  const [expandedReviews, setExpandedReviews] = useState({})
 
   useEffect(() => {
     loadReviews()
@@ -61,8 +64,29 @@ export function ToyReviews({ toyId }) {
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
+  }
+
+  const handleDeleteReview = async (reviewId) => {
+    try {
+      await reviewService.remove(reviewId)
+      const updatedReviews = reviews.filter(review => review._id !== reviewId)
+      setReviews(updatedReviews)
+      calculateAverageRating(updatedReviews)
+    } catch (err) {
+      console.error('Error deleting review:', err)
+    }
+  }
+
+  const canDeleteReview = (review) => {
+    return user && (user.isAdmin || review.userId === user._id)
+  }
+
+  const toggleReviewExpansion = (reviewId) => {
+    setExpandedReviews(prev => ({
+      ...prev,
+      [reviewId]: !prev[reviewId]
+    }))
   }
 
   const renderPagination = () => {
@@ -177,14 +201,39 @@ export function ToyReviews({ toyId }) {
                   alt={review.userName} 
                   className="reviewer-avatar"
                 />
-                <span className="reviewer-name">{review.userName}</span>
+                <div className="reviewer-details">
+                  <span className="reviewer-name">{review.userName}</span>
+                  <StarRating value={review.rating} readonly={true} />
+                </div>
               </div>
-              <StarRating value={review.rating} readonly={true} />
-              <span className="review-date">
-                {new Date(review.createdAt).toLocaleDateString()}
-              </span>
+              <div className="review-actions">
+                <span className="review-date">
+                  {new Date(review.createdAt).toLocaleDateString()}
+                </span>
+                {canDeleteReview(review) && (
+                  <button 
+                    className="delete-review-btn"
+                    onClick={() => handleDeleteReview(review._id)}
+                    title="Delete Review"
+                  >
+                    <FaTrash />
+                  </button>
+                )}
+              </div>
             </div>
-            <p className="review-text">{review.text}</p>
+            <div>
+              <p className={`review-text ${expandedReviews[review._id] ? 'expanded' : ''} ${review.text.length > 150 ? 'has-more' : ''}`}>
+                {review.text}
+              </p>
+              {review.text.length > 150 && (
+                <button 
+                  className="read-more-btn"
+                  onClick={() => toggleReviewExpansion(review._id)}
+                >
+                  {expandedReviews[review._id] ? 'Show less' : 'Read more'}
+                </button>
+              )}
+            </div>
           </div>
         ))}
       </div>

@@ -16,12 +16,23 @@
     .gallery-container {
       background: #fff;
       border-radius: 12px;
-      overflow: hidden;
+      // overflow: hidden;
   
       .main-image-container {
         position: relative;
         width: 100%;
         background: #f8f8f8;
+
+        img {
+          width: 100%;
+          aspect-ratio: 16/9;
+          object-fit: cover;
+          border-radius: 15px;
+
+          @media (max-width: 768px) {
+            border-radius: 0px;
+          }
+        }
   
         .swipe-indicator {
           position: absolute;

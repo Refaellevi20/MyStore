@@ -10,12 +10,9 @@ import { userService } from "../services/user/user.service.local"
 
 export function AirPreview({ air }) {
     const user = useSelector((storeState) => storeState.userModule.user)
-
-    
     const [heart, setHeart] = useState(false)
     const [owner, setOwner] = useState(null)
     
-
     useEffect(() => {
         if (user) {
           if (Array.isArray(air.wishList) && air.wishList.includes(user._id)) {

@@ -64,6 +64,7 @@ export function ToyReviews({ toyId }) {
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage)
+      // window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 
@@ -164,7 +165,7 @@ export function ToyReviews({ toyId }) {
       <div className="reviews-header">
         <h3>Customer Reviews</h3>
         <div className="average-rating">
-          <StarRating value={averageRating} readonly={true} />
+          <StarRating value={averageRating}  style={{display: 'flex', alignItems: 'center'}} />
           <span className="rating-text">
             {averageRating} out of 5 ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
           </span>

@@ -66,7 +66,12 @@ export function StarRating({
         } else if (index - 1 < value) {
             const percentage = ((value % 1) * 100).toFixed(0)
             return (
-                <span style={{ position: 'relative', display: 'inline-block', width: starSize, height: starSize }}>
+                <span style={{ 
+                    position: 'relative',
+                    height: 'sta',
+                    display: 'inline-block', 
+                    verticalAlign: 'top'
+                }}>
                     {emptyStar}
                     <span style={{
                         position: 'absolute',
@@ -75,6 +80,7 @@ export function StarRating({
                         width: `${percentage}%`,
                         height: '100%',
                         overflow: 'hidden',
+                        verticalAlign: 'top'
                     }}>
                         {fullStar}
                     </span>

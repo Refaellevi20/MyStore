@@ -12,6 +12,8 @@ import { PaymentSuccess } from './pages/PaymentSuccess'
 import { AdminPaymentSuccess } from './pages/AdminPaymentSuccess'
 import { AppHeader } from './cmps/AppHeader'
 import { AdminReports } from './cmps/AdminReports'
+import { SupportPage } from './pages/SupportPage'
+import { UserMsg } from './cmps/UserMsg'
 // import { AppFooter } from './cmps/AppFooter'
 // import { UserMsg } from './cmps/UserMsg'
 
@@ -37,12 +39,11 @@ export function RootCmp() {
           <Route path="/quick-payment" element={<QuickPayment />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/admin-payment-success" element={<AdminPaymentSuccess />} />
-          <Route path="/admin/reports" element={<AdminReports />} />
-          
+          {/* <Route path="/admin/reports" element={<AdminReports />} /> */}
+          <Route path="/support" element={<SupportPage />} />
         </Routes>
       </main>
-      {/* <AppFooter/> */}
-
+      <UserMsg />
     </div>
   )
 }

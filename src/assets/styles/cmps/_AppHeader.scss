@@ -1,225 +1,80 @@
-.header {
-  background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-  padding: 1rem;
-  transition: all 0.3s ease;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.app-header {
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+    box-shadow: none;
+    padding: 1rem 0;
+    margin-bottom: 10px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 
-  .headerContent {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    color: white;
-    font-size: 2.2rem;
-    font-family: 'Bubblegum Sans', cursive;
-    
-    .logoIcon {
-      font-size: 2.5rem;
-      animation: bounce 2s infinite;
-      color: #FFD700;
+    &.scrolled {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
-  }
 
-  .navigation {
-    display: flex;
-    gap: 2.5rem;
-    margin-left: 2rem;
-
-    .navItem {
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+    }
+  
+    .logo-container {
+      .company-logo {
+        width: auto;
+        height: 90px;
+        aspect-ratio: auto;
+        object-fit: contain;
+      }
+    }
+  
+    .user-info {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      color: white;
-      text-decoration: none;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-
-      &:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-      }
-    }
-  }
-
-  .searchBar {
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 0.7rem 1.2rem;
-    border-radius: 25px;
-    width: 300px;
-    transition: all 0.3s ease;
-    
-    &:focus-within {
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
-      transform: translateY(-1px);
-    }
-
-    .searchIcon {
-      color: #666;
-    }
-
-    input {
-      border: none;
-      outline: none;
-      background: none;
-      margin-left: 0.8rem;
-      width: 100%;
-      font-size: 1rem;
-      
-      &::placeholder {
-        color: #999;
-      }
-    }
-  }
-
-  .userActions {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-
-    .iconButton {
-      position: relative;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      
-      &:hover {
-        transform: scale(1.1);
-      }
-
-      .cart-count {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        background: #FFD700;
+      gap: 1rem;
+      padding-right: 1rem;
+  
+      .user-name {
+        font-size: 1rem;
+        font-weight: 500;
         color: #333;
+      }
+  
+      .user-avatar {
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        font-size: 0.8rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        object-fit: cover;
       }
     }
-
-    .user-menu-container {
-      position: relative;
-
+  
+    @media (max-width: 768px) {
+      padding: 0.5rem 0;
+  
+      .header-content {
+        height: 50px;
+      }
+  
+      .logo-container {
+        .company-logo {
+          height: 70px;
+        }
+      }
+  
       .user-info {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-        cursor: pointer;
-        padding: 0.5rem;
-        border-radius: 25px;
-        transition: all 0.3s ease;
-
-        &:hover {
-          background: rgba(255, 255, 255, 0.2);
+        gap: 0.5rem;
+  
+        .user-name {
+          font-size: 0.9rem;
         }
-
+  
         .user-avatar {
-          width: 35px;
+          width: 32px;
+          height: 32px;
         }
       }
     }
   }
-
-  .tooltip {
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .iconButton:hover .tooltip {
-    opacity: 1;
-  }
-
-  /* Holiday Theme */
-  .holiday {
-    background: linear-gradient(135deg, #ff4b4b, #2c3e50);
-  }
-
-  .snowflakes {
-    position: absolute;
-    width: 100%;
-    color: white;
-    font-size: 1.5em;
-    text-shadow: 0 0 5px #fff;
-    animation: snowfall 10s linear infinite;
-  }
-
-  /* Animations */
-  @keyframes bounce {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  @keyframes snowfall {
-    0% {
-      transform: translateY(-20px);
-    }
-
-    100% {
-      transform: translateY(20px);
-    }
-  }
-
-  /* Scrolled State */
-  .scrolled {
-    padding: 0.5rem;
-    background: rgba(255, 107, 107, 0.95);
-  }
-
-  .scrolled .logo {
-    font-size: 1.5rem;
-  }
-
-  .scrolled .logoIcon {
-    font-size: 2rem;
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .navigation {
-      display: none;
-    }
-
-    .searchBar {
-      width: 200px;
-    }
-  }
-}

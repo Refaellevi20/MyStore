@@ -164,7 +164,7 @@ const shopBranches = [
 export function GoogeMap() {
     const [selectedBranch, setSelectedBranch] = useState(null)
     const [mapCenter, setMapCenter] = useState(shopBranches[0].coords)
-    const [zoom, setZoom] = useState(11)
+    const [zoom, setZoom] = useState(8)
     const [mapType, setMapType] = useState('roadmap')
     const [userLocation, setUserLocation] = useState(null)
     const [searchQuery, setSearchQuery] = useState("")
@@ -195,7 +195,7 @@ export function GoogeMap() {
     const handleClick = (branch) => {
         setMapCenter(branch.coords)
         setSelectedBranch(branch)
-        setZoom(14)
+        setZoom(8)
     }
 
     const getCurrentLocation = () => {
@@ -316,7 +316,7 @@ export function GoogeMap() {
                             {branch.name}
                             <span className="tooltip-text">{branch.place}</span>
                         </button>
-                        {selectedBranch?.id === branch.id && (
+                        {/* {selectedBranch?.id === branch.id && (
                             <div className="branch-details" ref={branchDetailsRef}>
                                 <p><strong>Address:</strong> {branch.details.address}</p>
                                 <p><strong>Hours:</strong> {branch.details.hours}</p>
@@ -328,7 +328,7 @@ export function GoogeMap() {
                                     <FaDirections /> Get Directions
                                 </button>
                             </div>
-                        )}
+                        )} */}
                     </div>
                 ))}
             </div>

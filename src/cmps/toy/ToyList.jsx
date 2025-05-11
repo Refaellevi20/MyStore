@@ -14,8 +14,8 @@ export function ToyList({ toys, isOwner }) {
     navigate(`/toy/${toyId}${searchStr}`)
   }
 
-  function onEditToy(e, toyId) {
-    e.stopPropagation() // Prevent triggering the parent onClick
+  function onEditToy(ev, toyId) {
+    ev.stopPropagation() // Prevent triggering the parent onClick
     navigate(`/toy/edit/${toyId}`)
   }
 
@@ -32,7 +32,7 @@ export function ToyList({ toys, isOwner }) {
             {isOwner && (
               <button 
                 className="edit-btn" 
-                onClick={(e) => onEditToy(e, toy._id)}
+                onClick={(ev) => onEditToy(ev, toy._id)}
               >
                 Edit
               </button>

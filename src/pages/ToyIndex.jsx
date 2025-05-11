@@ -10,16 +10,20 @@ export function ToyIndex() {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const toys = useSelector((storeState) => storeState.toyModule.toys)
-  const user = useSelector((storeState) => storeState.userModule.user)
   const isLoading = useSelector((storeState) => storeState.systemModule.isLoading)
+  const user = useSelector((state) => state.userModule.user)
   const { LoginModal, openLoginModal, closeLoginModal } = useLoginModal()
 
   const filterBy = {
     category: searchParams.get('category'),
     location: searchParams.get('location'),
-    startDate: new Date().setDate(new Date().getDate() + 1),
-    endDate: new Date().setDate(new Date().getDate() + 4),
   }
+
+  useEffect(() => {
+    if (!user) {
+      openLoginModal(<LoginSignup closeModal={closeLoginModal} />)
+    }
+  }, [user])
 
   useEffect(() => {
     if (!toys || !toys.length) loadtoys(filterBy)
@@ -31,7 +35,7 @@ export function ToyIndex() {
 
   function onAddToy() {
     if (!user) {
-      openLoginModal(<LoginSignup closeModal={closeLoginModal} />)
+      openLoginModal(<LoginSignup onSuccess={closeLoginModal} />)
     } else if (user.isOwner) {
       navigate('/toy/edit')
     }

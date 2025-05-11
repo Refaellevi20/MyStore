@@ -6,6 +6,7 @@ import { utilService } from '../services/util.service'
 import { ToyReviews } from '../components/ToyReviews'
 import { RelatedToys } from '../components/RelatedToys'
 import { GoogeMap } from '../cmps/GoogeMap'
+import { AppFooter } from '../cmps/AppFooter'
 
 export function ToyDetails() {
   const [toy, setToy] = useState(null)
@@ -313,6 +314,7 @@ export function ToyDetails() {
           {JSON.parse(localStorage.getItem('cart') || '[]').length}
         </span>
       </button>
+      <AppFooter />
     </section>
   )
 }

@@ -1,0 +1,68 @@
+@import "../../assets/styles/setup/_functions.scss";
+
+.btnSquareColorRed {
+    padding: 13px;
+    width: 100%;
+    min-width: em(200px);
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    // Default background for mobile
+    background: linear-gradient(90deg, #4a90e2, #2d6da9, #4a90e2);
+    background-size: 200% 100%;
+    
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+
+    color: rgb(255, 255, 255);
+    font-family: cereal-Medium;
+    font-size: 1rem;
+    line-height: 20px;
+
+    // Mobile animation
+    animation: shimmer 3s infinite;
+
+    // Desktop styles
+    @media (hover: hover) {
+        animation: none;
+        background-image: radial-gradient(circle, #4a90e2 0%, #357abd 27.5%, #2d6da9 40%, #246195 57.5%, #1c4f7c 75%, #1a4975 100%);
+        background-position: calc((100 - var(--mouse-x, 0)) * 1%) calc((100 - var(--mouse-y, 0)) * 1%);
+        background-size: 200% 200%;
+        --mouse-x: 92;
+        --mouse-y: 73;
+    }
+
+    &:active {
+        animation: press 0.3s forwards;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+@keyframes press {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.96);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.parent-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}

@@ -21,6 +21,9 @@
 @import "cmps/AdminReports";
 @import "cmps/AppFooter";
 @import "cmps/AdminReports";
+@import "cmps/NavMenu";
+@import "cmps/LoginSignup";
+@import "cmps/UserMsg";
 
 
 
@@ -30,6 +33,7 @@
 @import "pages/Payment";
 @import "pages/PaymentSuccess";
 @import "pages/AdminPaymentSuccess";
+@import "pages/AdminSupportDashboard";
 //& slide
 // @import "cmps/slide/SlideGig";
 // @import "cmps/slide/SlideList";

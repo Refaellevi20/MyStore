@@ -9,6 +9,7 @@ export function useLoginModal() {
         if (!isOpen) return null
 
         return (
+            <>
             <div className="login-modal-overlay" onClick={(ev) => {
                 if (ev.target === ev.currentTarget) closeLoginModal()
             }}>
@@ -19,6 +20,7 @@ export function useLoginModal() {
                     {modalContent}
                 </div>
             </div>
+            </>
         )
     }
 

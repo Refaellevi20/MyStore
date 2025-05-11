@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
-import { userService } from '../services/user.service.local.js'
+import { userService } from '../services/user/user.service.local.js'
 import { ImgUploader } from './ImgUploader.jsx'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
-import { login, signup } from '../store/user.actions'
+import { login, signup } from '../store/user.actions.js'
+import { BtnSquareColorRed } from './buttons ui/btn-square-color.jsx'
+import { BtnGestColor } from './buttons ui/btn-gest-color.jsx'
 import { useNavigate } from 'react-router-dom'
+import { BtnHostColor } from './buttons ui/btn-host-color.jsx'
+import levixLogo from '../assets/imgs/levix.png'
 
 export function LoginSignup({ closeModal }) {
   const [credentials, setCredentials] = useState({
@@ -71,88 +75,108 @@ export function LoginSignup({ closeModal }) {
   }
 
   return (
-    <div className='login-page login__plus--signup'>
-      <header className='login-signup-header'>
-      </header>
-      {!isSignup && (
-        <form className='login-form' onSubmit={onLogin}>
-          <input
-            type="text"
-            name="username"
-            value={credentials.username}
-            placeholder="Username"
-            onChange={handleChange}
-            required
-            minLength="3"
-            autoFocus
-          />
-          <input
-            type="password"
-            name="password"
-            value={credentials.password}
-            placeholder="Password"
-            onChange={handleChange}
-            required
-            minLength="3"
-          />
-          <div>
-            Login
+    <div className='login-page'>
+      <div className="login-container">
+        <div className="company-info">
+          <div className="company-logo">
+            <img src = {levixLogo}
+              // src="https://images.seeklogo.com/logo-png/47/1/ctera-networks-logo-png_seeklogo-477488.png" 
+              alt="Ctera Logo" 
+            />
           </div>
-        </form>
-      )}
-      <div className='demo-login-btns'>
-        <div onClick={() => {
-          credentials.username = 'host'
-          onLogin()
-        }}>
-          DEMO: login as Shukiy Host
+          <div className="company-description">
+            <h2>Welcome to Ctera</h2>
+            <p>Leading the way in innovative enterprise solutions across Israel. Our commitment to excellence drives digital transformation for businesses nationwide.</p>
+            <ul className="company-highlights">
+              <li>✓ Enterprise Solutions</li>
+              <li>✓ Digital Innovation</li>
+              <li>✓ Technical Excellence</li>
+            </ul>
+          </div>
         </div>
-        <div onClick={() => {
-          credentials.username = 'guest'
-          onLogin()
-        }}>
-          DEMO: login as baba Guest
-        </div>
-      </div>
-      <div className='signup-section'>
-        {isSignup && (
-          <form className='signup-form' onSubmit={onSignup}>
-            <input
-              type="text"
-              name="fullname"
-              value={credentials.fullname}
-              placeholder="Fullname"
-              onChange={handleChange}
-              required
-              minLength="3"
-            />
-            <input
-              type="text"
-              name="username"
-              value={credentials.username}
-              placeholder="Username"
-              onChange={handleChange}
-              required
-              minLength="3"
-              autoFocus
-            />
-            <input
-              type="password"
-              name="password"
-              value={credentials.password}
-              placeholder="Password"
-              onChange={handleChange}
-              required
-              minLength="3"
-            />
-            <ImgUploader onUploaded={onUploaded} />
-            <button className='sing-up'>Signup!</button>
-          </form>
-        )}
-      </div>
-      <div className='sign-up-btn-container'>
-        <div className='btn-link' onClick={toggleSignup}>
-          {!isSignup ? 'Signup' : 'Login'}
+
+        <div className="auth-section">
+          {!isSignup ? (
+            <form className='login-form' onSubmit={onLogin}>
+              <h3>Sign In</h3>
+              <input
+                type="text"
+                name="username"
+                value={credentials.username}
+                placeholder="Username"
+                onChange={handleChange}
+                required
+                minLength="3"
+                autoFocus
+              />
+              <input
+                type="password"
+                name="password"
+                value={credentials.password}
+                placeholder="Password"
+                onChange={handleChange}
+                required
+                minLength="3"
+              />
+              <BtnSquareColorRed className="login-btn">Login</BtnSquareColorRed>
+            </form>
+          ) : (
+            <form className='signup-form' onSubmit={onSignup}>
+              <h3>Create Account</h3>
+              <input
+                type="text"
+                name="fullname"
+                value={credentials.fullname}
+                placeholder="Fullname"
+                onChange={handleChange}
+                required
+                minLength="3"
+              />
+              <input
+                type="text"
+                name="username"
+                value={credentials.username}
+                placeholder="Username"
+                onChange={handleChange}
+                required
+                minLength="3"
+                autoFocus
+              />
+              <input
+                type="password"
+                name="password"
+                value={credentials.password}
+                placeholder="Password"
+                onChange={handleChange}
+                required
+                minLength="3"
+              />
+              <ImgUploader onUploaded={onUploaded} />
+              <BtnSquareColorRed className='sing-up'>Signup!</BtnSquareColorRed>
+            </form>
+          )}
+        <div>
+          <div className='demo-login-btns'>
+            <BtnHostColor onClick={() => {
+              credentials.username = 'host'
+              onLogin()
+            }}>
+              Demo: Login as Host
+            </BtnHostColor>
+            </div>
+            <BtnGestColor onClick={() => {
+              credentials.username = 'guest'
+              onLogin()
+            }}>
+              Demo: Login as Guest
+            </BtnGestColor>
+          </div>
+
+          <div className='sign-up-btn-container'>
+            <button className='btn-link' onClick={toggleSignup}>
+              {!isSignup ? 'Need an account? Sign up' : 'Already have an account? Login'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

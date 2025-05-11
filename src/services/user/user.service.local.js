@@ -1,6 +1,5 @@
-import { utilService } from './util.service.js'
-import { storageService } from './async-storage.service.js'
-import { httpService } from './http.service.js'
+import { utilService } from '../util.service.js'
+import { storageService } from '../async-storage.service.js'
 
 const USER_KEY = 'userDB'
 _createUsers()
@@ -11,6 +10,7 @@ export const userService = {
   signup,
   login,
   logout,
+  getById,
   updateUser,
   getUsers,
   getEmptyCredentials,
@@ -23,6 +23,11 @@ async function get(userId) {
 
 function remove(userId) {
   return storageService.remove(USER_KEY, userId)
+}
+
+async function getById(userId) {
+  const user = await storageService.get('user', userId)
+  return user
 }
 
 async function signup(credentials) {
@@ -77,20 +82,20 @@ function _createUsers() {
     const users = [
       {
         _id: 'u101',
-        fullname: 'Muki Host',
-        imgUrl: 'https://robohash.org/mukihost',
+        fullname: 'shukiy Host',
+        imgUrl: 'https://robohash.org/shukiyhost?set=set4',
         username: 'host',
         password: 'secret',
-        isOwner: true, // OPTIONAL
-        likedtoys: [{ _id: '622f337a75c7d36e498aaaf8' }],
+        isOwner: true, 
+        likedStays: [{ _id: '622f337a75c7d36e498aaaf8' }],
       },
       {
         _id: 'u102',
         fullname: 'Puki guest',
-        imgUrl: 'https://robohash.org/pukiguest',
+        imgUrl: 'https://robohash.org/pukiguest?set=set4',
         username: 'guest',
         password: 'secret',
-        likedtoys: [{ _id: '622f337a75c7d36e498aaaf8' }],
+        likedStays: [{ _id: '622f337a75c7d36e498aaaf8' }],
       },
     ]
 

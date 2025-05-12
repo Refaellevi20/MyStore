@@ -7,6 +7,7 @@ import { ToyReviews } from '../components/ToyReviews'
 import { RelatedToys } from '../components/RelatedToys'
 import { GoogeMap } from '../cmps/GoogeMap'
 import { AppFooter } from '../cmps/AppFooter'
+import { AppHeader } from '../pages/AppHeader'
 
 export function ToyDetails() {
   const [toy, setToy] = useState(null)
@@ -101,7 +102,12 @@ export function ToyDetails() {
   }
 
   return (
-    <section className="toy-details secondary-layout">
+    <section className="toy-details ">
+      <AppHeader 
+        onQuickBuy={() => handleQuickBuy()}
+        onSelectImages={() => handleBuyNow()}
+      />
+      <section className="secondary-layout">
       <div className="details-layout">
         {/* Mobile-Friendly Gallery Section */}
         <div className="gallery-container">
@@ -177,12 +183,8 @@ export function ToyDetails() {
           </div>
         </div>
 
-        {/* Add new sections */}
+        {/* Additional Info (Reviews etc) */}
         <div className="toy-additional-info">
-       
-
-        
-
           {/* <div className="toy-amenities">
             <h3>Amenities</h3>
             <div className="amenities-grid">
@@ -200,6 +202,11 @@ export function ToyDetails() {
           {/* Add Related Toys Component */}
           {/* <RelatedToys currentToy={toy} /> */}
         </div>
+
+        {/* Map Container */}
+        {/* <div className="map-container">
+          <GoogeMap />
+        </div> */}
       </div>
 
       {/* Purchase Modal */}
@@ -315,6 +322,7 @@ export function ToyDetails() {
         </span>
       </button>
       <AppFooter />
+      </section>
     </section>
   )
 }

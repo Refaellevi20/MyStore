@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 // import { HomePage } from './pages/HomePage'
 import { ToyIndex } from './pages/ToyIndex'
@@ -20,12 +21,13 @@ import { AdminSupportDashboard } from './pages/AdminSupportDashboard'
 
 
 export function RootCmp() {
-
+  const location = useLocation()
+  //! for checking if the current path is a toy page (without refreshing/rendering the page)
 
   return (
     <div className="l">
       {/* <UserMsg /> */}
-      <AppHeader />
+      {!location.pathname.startsWith('/toy/') && <AppHeader />}
       <main>
         <Routes>
           <Route path='/' element={<ToyIndex />} />
@@ -39,7 +41,7 @@ export function RootCmp() {
           <Route path="/admin/support" element={<AdminSupportDashboard />} />
           <Route path="/quick-payment" element={<QuickPayment />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
-            <Route path="/admin-payment-success" element={<AdminPaymentSuccess />} />
+          <Route path="/admin-payment-success" element={<AdminPaymentSuccess />} />
           {/* <Route path="/admin/reports" element={<AdminReports />} /> */}
           <Route path="/support" element={<SupportPage />} />
         </Routes>

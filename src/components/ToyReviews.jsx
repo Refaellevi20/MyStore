@@ -80,8 +80,10 @@ export function ToyReviews({ toyId }) {
   }
 
   const canDeleteReview = (review) => {
-    return user && (user.isAdmin || review.userId === user._id)
-  }
+    if (!user) return false
+    if (user.isOwner) return true
+    return review.byUser?._id === user._id || review.userId === user._id
+  } 
 
   const toggleReviewExpansion = (reviewId) => {
     setExpandedReviews(prev => ({
